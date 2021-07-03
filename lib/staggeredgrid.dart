@@ -10,16 +10,13 @@ class StaggeredGrid extends StatelessWidget {
   final IndexedWidgetBuilder itemBuilder;
   final int itemCount;
   final ScrollPhysics? physics;
-  final bool shrinkWrap;
-  final BoxConstraints? size; // required if shrink wrap is false
-
+  final BoxConstraints minSize; // size of grid
   StaggeredGrid({
     required this.nOfColumns,
     required this.itemBuilder,
     required this.itemCount,
     this.physics,
-    this.shrinkWrap = false,
-    this.size,
+    required this.minSize,
   });
   @override
   Widget build(BuildContext context) {
@@ -27,44 +24,29 @@ class StaggeredGrid extends StatelessWidget {
         scrollDirection: Axis.vertical,
         physics: physics ??
             BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-        child: RowBuilder(
-          itemCount: nOfColumns,
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          itemBuilder: (context, indexOfColumn) {
-            return Expanded(
-              child: (shrinkWrap == true)
-                  ? ListView(
-                      shrinkWrap: shrinkWrap,
-                      physics: NeverScrollableScrollPhysics(),
-                      scrollDirection: Axis.vertical,
-                      children: List.generate(
-                              lengthOfColumnList(
-                                  itemCount, nOfColumns, indexOfColumn),
-                              (columnIndex) => this.itemBuilder(
-                                  context,
-                                  trueIndex(
-                                      indexOfColumn, columnIndex, nOfColumns)))
-                          .toList(),
-                    )
-                  : Container(
-                      height: size!.maxHeight,
-                      width: size!.maxWidth,
-                      child: ListView(
-                        shrinkWrap: shrinkWrap,
-                        physics: NeverScrollableScrollPhysics(),
-                        scrollDirection: Axis.vertical,
-                        children: List.generate(
-                            lengthOfColumnList(
-                                itemCount, nOfColumns, indexOfColumn),
-                            (columnIndex) => this.itemBuilder(
-                                context,
-                                trueIndex(indexOfColumn, columnIndex,
-                                    nOfColumns))).toList(),
-                      ),
-                    ),
-            );
-          },
+        child: Container(
+          constraints: BoxConstraints(
+              minHeight: minSize.maxHeight, minWidth: minSize.maxWidth),
+          child: RowBuilder(
+            itemCount: nOfColumns,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            itemBuilder: (context, indexOfColumn) {
+              return Expanded(
+                child: ListView(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  scrollDirection: Axis.vertical,
+                  children: List.generate(
+                      lengthOfColumnList(itemCount, nOfColumns, indexOfColumn),
+                      (columnIndex) => this.itemBuilder(
+                          context,
+                          trueIndex(indexOfColumn, columnIndex,
+                              nOfColumns))).toList(),
+                ),
+              );
+            },
+          ),
         ));
   }
 }
