@@ -10,11 +10,14 @@ class StaggeredGrid extends StatelessWidget {
   final IndexedWidgetBuilder itemBuilder;
   final int itemCount;
   final ScrollPhysics? physics;
+  final bool shrinkWrap;
+
   StaggeredGrid({
     required this.nOfColumns,
     required this.itemBuilder,
     required this.itemCount,
     this.physics,
+    this.shrinkWrap = false,
   });
   @override
   Widget build(BuildContext context) {
@@ -30,7 +33,7 @@ class StaggeredGrid extends StatelessWidget {
             return Expanded(
               child: Container(
                 child: ListView(
-                  shrinkWrap: true,
+                  shrinkWrap: shrinkWrap,
                   physics: NeverScrollableScrollPhysics(),
                   scrollDirection: Axis.vertical,
                   children: List.generate(
