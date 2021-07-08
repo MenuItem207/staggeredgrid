@@ -22,6 +22,7 @@ class StaggeredGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
         scrollDirection: Axis.vertical,
+        padding: EdgeInsets.zero,
         physics: physics ??
             BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
         child: Container(
@@ -34,6 +35,7 @@ class StaggeredGrid extends StatelessWidget {
             itemBuilder: (context, indexOfColumn) {
               return Expanded(
                 child: ListView(
+                  padding: EdgeInsets.zero,
                   shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
                   scrollDirection: Axis.vertical,
