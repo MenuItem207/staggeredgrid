@@ -11,18 +11,20 @@ class StaggeredGrid extends StatelessWidget {
   final int itemCount;
   final ScrollPhysics? physics;
   final BoxConstraints minSize; // size of grid
+  final EdgeInsets padding;
   StaggeredGrid({
     required this.nOfColumns,
     required this.itemBuilder,
     required this.itemCount,
     this.physics,
     required this.minSize,
+    this.padding = EdgeInsets.zero,
   });
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
         scrollDirection: Axis.vertical,
-        padding: EdgeInsets.zero,
+        padding: padding,
         physics: physics ??
             BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
         child: Container(
