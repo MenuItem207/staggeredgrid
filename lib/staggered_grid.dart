@@ -1,10 +1,11 @@
 library staggeredgrid;
 
 import 'package:flutter/material.dart';
-import 'package:staggeredgrid/rowBuilder.dart';
+
+part 'row_builder.dart';
 
 // widget for staggeredGrid
-// must be placed within a widget with size just like a list
+// must be placed within a widgetwith size just like a list
 class StaggeredGrid extends StatelessWidget {
   final int nOfColumns;
   final IndexedWidgetBuilder itemBuilder;

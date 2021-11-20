@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+part of 'staggered_grid.dart';
 
 // returns row builder
 class RowBuilder extends StatelessWidget {

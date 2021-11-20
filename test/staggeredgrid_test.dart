@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:staggeredgrid/staggeredgrid.dart';
+import 'package:staggeredgrid/staggered_grid.dart';
 
 // test for staggered grid
 void main() {
