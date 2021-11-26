@@ -32,7 +32,7 @@ class _StaggeredGridState extends State<StaggeredGrid> {
   void initState() {
     super.initState();
     linkedController = LinkedScrollControllerGroup();
-    for (int i = 0; i < widget.itemCount; i++) {
+    for (int i = 0; i < widget.nOfColumns; i++) {
       controllers.add((linkedController.addAndGet()));
     }
   }
